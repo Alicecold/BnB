@@ -1,0 +1,34 @@
+{
+  "Rooms": {
+    "R001": {
+      "type": "Single",
+      "image": "../R001.jpg",
+      "description": "A great room for the busy loners.",
+      "price": 100
+    },
+    "R002": {
+      "type": "Single",
+      "image": "../R002.jpg",
+      "description": "Our deluxe single room, complete with satin duvets.",
+      "price": 200
+    },
+    "R003": {
+      "type": "Double",
+      "image": "../R003.jpg",
+      "description": "Budget double room, for the economic lovebirds.",
+      "price": 150
+    },
+    "R004": {
+      "type": "Double",
+      "image": "../R004.jpg",
+      "description": "Our deluxe double room, complete with oysters.",
+      "price": 300
+    },
+    "R005": {
+      "type": "Family",
+      "image": "../R005.jpg",
+      "description": "Our family department, sleeping pills included.",
+      "price": 500
+    }
+  }
+}

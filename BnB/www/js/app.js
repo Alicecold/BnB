@@ -5,23 +5,68 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
 
-.controller('customerCtrl', function(){
-})
+  .controller('roomCtrl', function ($scope, $http, $state) {
+    $http.get('json/rooms.json').success(function (data) {
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      $scope.rooms = data;
+      $scope.whichRoom =  $state.params.roomId;
+    })
+  })
 
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-})
+  .run(function ($ionicPlatform) {
+    $ionicPlatform.ready(function () {
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+
+        // Don't remove this line unless you know what you are doing. It stops the viewport
+        // from snapping when text inputs are focused. Ionic handles this internally for
+        // a much nicer keyboard experience.
+        cordova.plugins.Keyboard.disableScroll(true);
+      }
+      if (window.StatusBar) {
+        StatusBar.styleDefault();
+      }
+    });
+  })
+
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('tabs', {
+        url: '/tab',
+        abstract: true,
+        templateUrl: 'templates/tabs.html'
+      })
+
+      .state('tabs.rooms', {
+        url: '/rooms',
+        views: {
+          'rooms-tab': {
+            templateUrl: 'templates/rooms.html',
+            controller: 'roomCtrl'
+          }
+        }
+      })
+
+      .state('tabs.home', {
+        url: '/home',
+        views: {
+          'home-tab': {
+            templateUrl: 'templates/home.html'
+          }
+        }
+      })
+
+    .state('tabs.detail', {
+      url: '/rooms/:roomId',
+      views: {
+        'rooms-tab': {
+          templateUrl: 'templates/room.html',
+          controller: 'roomCtrl'
+        }
+      }
+    })
+
+    $urlRouterProvider.otherwise('/tab/home');
+  })

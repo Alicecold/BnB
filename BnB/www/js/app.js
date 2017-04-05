@@ -4,17 +4,59 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
-  .service('userInfo', function () {
+  .service('searchQuery', function () {
     var adultGuests = 1;
-    this.getAdultGuest = function () {
+    var childGuests = 0;
+    this.getChildGuests = function () {
+      return childGuests;
+    };
+    this.setChildGuests = function (guests) {
+      childGuests = guests;
+    };
+    this.getAdultGuests = function () {
       return adultGuests;
-    }
-    this.setAdultGuest = function (guests) {
+    };
+    this.setAdultGuests = function (guests) {
       adultGuests = guests;
-    }
+    };
+  })
+  .service('bookInfo', function () {
+    var user;
+    var room;
+    var basics;
+
+    this.getUser = function () {
+      return user;
+    };
+
+    this.getRoom = function () {
+      return room;
+    };
+
+    this.setUser = function (givenName, surname, email, phone) {
+      user = {
+        name: giveName + " " + surname,
+        email: email,
+        phone: phone
+      };
+    };
+
+    this.setRoom = function (roomID) {
+      room = roomID;
+    };
+
+    this.setBasics = function (inDate, outDate, adults, children) {
+      basics = {
+        checkin: inDate,
+        checkout: outDate,
+        adultGuests: adults,
+        childGuests: children
+      };
+    };
+
   })
 
-  .controller('roomCtrl', function ($scope, $http, $state, userInfo) {
+  .controller('roomCtrl', function ($scope, $http, $state, searchQuery, bookInfo) {
     $http.get('json/rooms.json').success(function (data) {
 
       $scope.rooms = data;
@@ -23,17 +65,40 @@ angular.module('starter', ['ionic'])
 
     })
 
-    $scope.adultGuests = userInfo.getAdultGuest();
+    /* search for rooms */
 
-    $scope.getAdultGuest = function () {
-      return userInfo.getAdultGuest();
+    $scope.getAdultGuests = function () {
+      return searchQuery.getAdultGuests();
     }
 
-    $scope.setAdultGuest = function (guests) {
-      userInfo.setAdultGuest(guests);
-     $scope.adultGuests = userInfo.getAdultGuest();
+    $scope.setAdultGuests = function (guests) {
+      searchQuery.setAdultGuests(guests);
+      $scope.adultGuests = searchQuery.getAdultGuests();
     }
-    console.log($scope.adultGuests);
+    $scope.getChildGuests = function () {
+      return searchQuery.getChildGuests();
+    }
+
+    $scope.setChildGuests = function (guests) {
+      if (guests)
+        searchQuery.setChildGuests(guests);
+      else
+        searchQuery.setChildGuests(0);
+      $scope.adultGuests = searchQuery.getChildGuests();
+    }
+
+    $scope.getTotalGuests = function () {
+      return searchQuery.getAdultGuests() + searchQuery.getChildGuests();
+    }
+
+    /* Book room */
+    $scope.getBookedRoom = function () {
+      return bookInfo.getRoom();
+    };
+
+    $scope.setBookedRoom= function (room) {
+      bookInfo.setRoom(room);
+    }
 
   })
 

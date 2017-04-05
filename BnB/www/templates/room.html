@@ -9,7 +9,7 @@
         <h3>{{room.price}}/Night</h3>
         <p>{{room.description}}</p>
         
-        <a href="" class="button">Book Room {{room.id}}</a>
+        <a href="#/tab/confirm" class="button" ng-click="setBookedRoom(room)">Book Room {{room.id}}</a>
       </ion-item>
     </ion-list>
   </ion-content>

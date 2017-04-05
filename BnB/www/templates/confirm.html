@@ -1,7 +1,7 @@
 <ion-view>
   <ion-content has-header="true" class="padding">
-    Room: R001 Single.<br>
-    Number of guests: {{adultGuests}}, {{adultGuests}} adults and 0 children.<br>
+    Room: {{getBookedRoom().id + " (" + getBookedRoom().type + ")"}}.<br>
+    Number of guests: {{getTotalGuests()}}, {{getAdultGuests()}} adult(s) and {{getChildGuests()}} child(ren).<br>
     Price: 100 /Night. <br> <br>
     Order made by:<br>
     Name: X Xson<br>

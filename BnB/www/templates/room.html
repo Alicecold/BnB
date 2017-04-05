@@ -1,12 +1,15 @@
 <ion-view>
   <ion-content has-header="true">
     <ion-list class="list-inset">
+      
       <ion-item ng-repeat='room in rooms | filter: {id : whichRoom}' class="item-text-wrap">
-        <img ng-src="{{room.image}}" alt="{{room.name}}" width="100"/>
+        <img ng-src="{{room.image}}" alt="{{room.name}}" width="100%"/>
         <h2>{{room.id}}</h2>
         <h3>{{room.type}}</h3>
         <h3>{{room.price}}/Night</h3>
         <p>{{room.description}}</p>
+        
+        <a href="" class="button">Book Room {{room.id}}</a>
       </ion-item>
     </ion-list>
   </ion-content>

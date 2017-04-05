@@ -4,13 +4,37 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
+  .service('userInfo', function () {
+    var adultGuests = 1;
+    this.getAdultGuest = function () {
+      return adultGuests;
+    }
+    this.setAdultGuest = function (guests) {
+      adultGuests = guests;
+    }
+  })
 
-  .controller('roomCtrl', function ($scope, $http, $state) {
+  .controller('roomCtrl', function ($scope, $http, $state, userInfo) {
     $http.get('json/rooms.json').success(function (data) {
 
       $scope.rooms = data;
-      $scope.whichRoom =  $state.params.roomId;
+      $scope.whichRoom = $state.params.roomId;
+
+
     })
+
+    $scope.adultGuests = userInfo.getAdultGuest();
+
+    $scope.getAdultGuest = function () {
+      return userInfo.getAdultGuest();
+    }
+
+    $scope.setAdultGuest = function (guests) {
+      userInfo.setAdultGuest(guests);
+     $scope.adultGuests = userInfo.getAdultGuest();
+    }
+    console.log($scope.adultGuests);
+
   })
 
   .run(function ($ionicPlatform) {
@@ -58,15 +82,33 @@ angular.module('starter', ['ionic'])
         }
       })
 
-    .state('tabs.detail', {
-      url: '/rooms/:roomId',
-      views: {
-        'rooms-tab': {
-          templateUrl: 'templates/room.html',
-          controller: 'roomCtrl'
+      .state('tabs.search', {
+        url: '/search',
+        views: {
+          'search-tab': {
+            templateUrl: 'templates/search.html',
+            controller: 'roomCtrl'
+          }
         }
-      }
-    })
+      })
+      .state('tabs.confirm', {
+        url: '/confirm',
+        views: {
+          'confirm-tab': {
+            templateUrl: 'templates/confirm.html',
+            controller: 'roomCtrl'
+          }
+        }
+      })
+      .state('tabs.detail', {
+        url: '/rooms/:roomId',
+        views: {
+          'rooms-tab': {
+            templateUrl: 'templates/room.html',
+            controller: 'roomCtrl'
+          }
+        }
+      })
 
     $urlRouterProvider.otherwise('/tab/home');
   })

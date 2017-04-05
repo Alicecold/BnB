@@ -1,8 +1,9 @@
 <ion-view>
   <ion-content has-header="true">
     <ion-list>
-      <ion-item ng-repeat='room in rooms'  ng-if="room.beds > 1" class="item-thumbnail-left item-icon-right item-text-wrap" href="#/tab/rooms/{{room.id}}">
-        <img ng-src="{{room.image}}" alt="{{room.name}}"/>
+      <ion-item ng-repeat='room in rooms' ng-if="room.beds >= getAdultGuest()" class="item-thumbnail-left item-icon-right item-text-wrap"
+        href="#/tab/rooms/{{room.id}}">
+        <img ng-src="{{room.image}}" alt="{{room.name}}" />
         <h2>{{room.id}}</h2>
         <h3>{{room.type}}</h3>
         <h3>{{room.price}}/Night</h3>

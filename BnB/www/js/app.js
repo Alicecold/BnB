@@ -7,6 +7,8 @@ angular.module('starter', ['ionic'])
   .service('searchQuery', function () {
     var adultGuests = 1;
     var childGuests = 0;
+    var indate;
+    var outdate;
     this.getChildGuests = function () {
       return childGuests;
     };
@@ -19,6 +21,16 @@ angular.module('starter', ['ionic'])
     this.setAdultGuests = function (guests) {
       adultGuests = guests;
     };
+
+    this.setDates = function (checkin, checkout) {
+      indate = checkin;
+      outdate = checkout;
+    }
+
+    /* Array because I am Lazy */
+    this.getDates = function () {
+      return [indate, outdate];
+    }
   })
   .service('bookInfo', function () {
     var user;
@@ -33,9 +45,13 @@ angular.module('starter', ['ionic'])
       return room;
     };
 
+    this.getBasics = function () {
+      return basics;
+    }
+
     this.setUser = function (givenName, surname, email, phone) {
       user = {
-        name: giveName + " " + surname,
+        name: givenName + " " + surname,
         email: email,
         phone: phone
       };
@@ -72,7 +88,10 @@ angular.module('starter', ['ionic'])
     }
 
     $scope.setAdultGuests = function (guests) {
-      searchQuery.setAdultGuests(guests);
+      if (guests)
+        searchQuery.setAdultGuests(guests);
+      else
+        searchQuery.setAdultGuests(1);
       $scope.adultGuests = searchQuery.getAdultGuests();
     }
     $scope.getChildGuests = function () {
@@ -91,13 +110,35 @@ angular.module('starter', ['ionic'])
       return searchQuery.getAdultGuests() + searchQuery.getChildGuests();
     }
 
+    $scope.setDates = function (indate, outdate) {
+      searchQuery.setDates(indate, outdate);
+    }
+
+    $scope.getDates = function () {
+      return searchQuery.getDates();
+    }
+
     /* Book room */
     $scope.getBookedRoom = function () {
       return bookInfo.getRoom();
     };
 
-    $scope.setBookedRoom= function (room) {
+    $scope.getBookedBasics = function () {
+      return bookInfo.getBasics();
+    }
+
+    $scope.setBookedRoom = function (room, indate, outdate, adults, children) {
       bookInfo.setRoom(room);
+      bookInfo.setBasics(indate, outdate, adults, children);
+    };
+
+    $scope.setBookedUser = function (firstname, surname, email, phone) {
+      bookInfo.setUser(firstname, surname, email, phone);
+      $state.go('tabs.confirm');
+    }
+
+    $scope.getBookedUser = function () {
+      return bookInfo.getUser();
     }
 
   })
@@ -165,11 +206,20 @@ angular.module('starter', ['ionic'])
           }
         }
       })
-      .state('tabs.detail', {
+      .state('tabs.room', {
         url: '/rooms/:roomId',
         views: {
           'rooms-tab': {
             templateUrl: 'templates/room.html',
+            controller: 'roomCtrl'
+          }
+        }
+      })
+      .state('tabs.user', {
+        url: '/user',
+        views: {
+          'user-tab': {
+            templateUrl: 'templates/userinfo.html',
             controller: 'roomCtrl'
           }
         }

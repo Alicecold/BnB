@@ -1,17 +1,17 @@
 <ion-header-bar class=" bar-dark">
-  
   <button class="button icon-left ion-ios-arrow-back" href="#/tab/rooms"></button><h1 class="title">Stockholm B&B</h1>
 </ion-header-bar>
 <ion-view>
   <ion-content has-header="true">
     <ion-list class="list-inset">
-
+      <!-- Prints a room which fits the room clicked on -->
       <ion-item ng-repeat='room in rooms | filter: {id : whichRoom}' class="item-text-wrap">
         <img ng-src="{{room.image}}" alt="{{room.name}}" width="100%" />
         <h2>{{room.id}}</h2>
         <h3>{{room.type}}</h3>
         <h3>{{room.price}}/Night</h3>
         <p>{{room.description}}</p>
+        <!-- On book room, save the search. Why? because if the user later will be able to go back multiple steps, it'll still be the last booked setup that is used -->
         <a href="#/tab/user" class="button" ng-click="setBookedRoom(room, getDates()[0], getDates()[1], getAdultGuests(), getChildGuests()); ">Book Room {{room.id}}</a>
       </ion-item>
     </ion-list>

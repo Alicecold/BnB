@@ -4,6 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
+// Service for search
   .service('searchQuery', function () {
     var adultGuests = 1;
     var childGuests = 0;
@@ -32,6 +33,7 @@ angular.module('starter', ['ionic'])
       return [indate, outdate];
     }
   })
+  // Service for booking
   .service('bookInfo', function () {
     var user;
     var room;
@@ -71,8 +73,9 @@ angular.module('starter', ['ionic'])
     };
 
   })
-
+// The actual controller for most of this. This could be cleaned up
   .controller('roomCtrl', function ($scope, $http, $state, searchQuery, bookInfo) {
+    // Get info from Json-file
     $http.get('json/rooms.json').success(function (data) {
 
       $scope.rooms = data;
@@ -112,7 +115,7 @@ angular.module('starter', ['ionic'])
 
     $scope.setDates = function (indate, outdate) {
       searchQuery.setDates(indate, outdate);
-      $state.go('tabs.rooms');
+      $state.go('tabs.rooms'); // for the buttons to work properly
     }
 
     $scope.getDates = function () {
@@ -135,14 +138,15 @@ angular.module('starter', ['ionic'])
 
     $scope.setBookedUser = function (firstname, surname, email, phone) {
       bookInfo.setUser(firstname, surname, email, phone);
-      $state.go('tabs.confirm');
+      $state.go('tabs.confirm'); // for the buttons to work properly
     }
 
     $scope.getBookedUser = function () {
       return bookInfo.getUser();
     }
-    $scope.confirm = false;
     /* Confirm */
+    $scope.confirm = false;
+
     $scope.confirming = function () {
       $scope.confirm = !$scope.confirm;
     }
@@ -166,7 +170,7 @@ angular.module('starter', ['ionic'])
       }
     });
   })
-
+// Tabs :)
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('tabs', {

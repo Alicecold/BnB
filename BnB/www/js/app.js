@@ -112,6 +112,7 @@ angular.module('starter', ['ionic'])
 
     $scope.setDates = function (indate, outdate) {
       searchQuery.setDates(indate, outdate);
+      $state.go('tabs.rooms');
     }
 
     $scope.getDates = function () {
@@ -139,6 +140,11 @@ angular.module('starter', ['ionic'])
 
     $scope.getBookedUser = function () {
       return bookInfo.getUser();
+    }
+    $scope.confirm = false;
+    /* Confirm */
+    $scope.confirming = function () {
+      $scope.confirm = !$scope.confirm;
     }
 
   })

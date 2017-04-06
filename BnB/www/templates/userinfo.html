@@ -19,9 +19,9 @@
             <input type="tel" placeholder="Number" required ng-model="phone">
             </label>
       <div class="text-center padding">
-        <input type="submit" value="Confirm" class="button icon-right ion-ios-checkmark-outline">
-        <!--<div ng-if="userForm.email.$error && userForm.email.$dirty"> Make sure to use a vaild email! </div>
-      <div ng-if="myForm.$error.required && userForm.$dirty"> Make sure to fill all the fields! </div>-->
+        <input type="submit" value="Confirm" class="button icon-right ion-ios-checkmark-outline" ng-disabled="userForm.$invalid">
+        <div ng-show="userForm.$error.email && userForm.email.$dirty" > Make sure to use a vaild email! </div>
+        <div ng-show="userForm.$invalid && userForm.$dirty" > All fields are required! </div>
       </div>
     </form>
   </ion-content>

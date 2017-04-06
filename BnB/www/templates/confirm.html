@@ -5,7 +5,8 @@
   <ion-content has-header="true" class="padding">
     Room: {{getBookedRoom().id + " (" + getBookedRoom().type + ")"}}.<br> Check-in: {{getBookedBasics().checkin | date:'yyyy-MM-dd'}}
     <br> Check-out: {{getBookedBasics().checkout | date:'yyyy-MM-dd'}} <br> Number of guests: {{getBookedBasics().adultGuests
-    + getBookedBasics().childGuests}} ({{getBookedBasics().adultGuests}} adult(s) and {{getBookedBasics().childGuests}} child(ren))<br>    Price: {{getBookedRoom().price}} /Night. <br> <br> Order made by:<br> Name: {{getBookedUser().name}}<br> Email: {{getBookedUser().email}}<br>    Telephone: {{getBookedUser().phone}}<br><br>
+    + getBookedBasics().childGuests}} ({{getBookedBasics().adultGuests}} adult(s) and {{getBookedBasics().childGuests}} child(ren))<br>    Price: {{getBookedRoom().price | currency}} /Night. <br> <br> Order made by:<br> Name: {{getBookedUser().name}}<br> Email:
+    {{getBookedUser().email}}<br> Telephone: {{getBookedUser().phone}}<br><br>
 
     <div class="padding text-center">
       <button class="button button-dark icon-center ion-ios-checkmark-outline" ng-click="confirming()">

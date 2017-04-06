@@ -2,3 +2,9 @@
     background-image: url("/../img/corridor.jpg");
     background-size: cover;
 }
+
+.visibility{
+    color: aliceblue;
+    text-shadow: 3px 3px 0 #000;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}
